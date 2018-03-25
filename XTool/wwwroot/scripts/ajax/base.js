@@ -26,7 +26,7 @@ function sendAjax(ajaxRequest) {
                 error(result, ajaxRequest.error);
             }
         },
-        error: (result) => error(result, ajaxRequest.error)
+        error: result => error(result, ajaxRequest.error)
     });
 }
 

@@ -9,7 +9,7 @@ using XTool.Models.ModelInterfaces.DataAnnotations;
 
 namespace XTool.Models.ActorModels.BaseTypes
 {
-    public abstract class Event : IStorageModel<int>
+    public abstract class Event : IStorageModel<int, Event>
     {
         public int Id { get; set; }
 
@@ -30,6 +30,6 @@ namespace XTool.Models.ActorModels.BaseTypes
         [NotMapped]
         public string End => string.Concat(Period.Where(c => "1234567890-".Contains(c))).Split('-').ElementAtOrDefault(1);
 
-        public abstract IUpdateble Update(IUpdateble model);
+        public abstract void Update(Event updateSource);
     }
 }

@@ -27,7 +27,7 @@ namespace XTool.UserManager
                     result = new OperationResult() { Status = Statuses.Ok, Message = "Произонла ошибка подтверждения пользователя!"};
                 }
                 else
-                    result = new OperationResult() { Status = Statuses.Ok, Message = "Пользователь успешно зарегистрирован и его аккаунт подтверждён.", RelatedId = user.Id};
+                    result = new OperationResult() { Status = Statuses.Ok, Message = "Пользователь успешно зарегистрирован и его аккаунт подтверждён.", Data = user.Id};
             }
             return result;
         }

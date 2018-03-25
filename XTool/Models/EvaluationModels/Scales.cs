@@ -5,11 +5,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using XTool.Data.ModelInterfaces;
 using XTool.Models.ActorModels;
 
 namespace XTool.Models.EvaluationModels
 {
-    public class Scales // : IEnumerable<int>
+    public class Scales : IStorageModel<int> // : IEnumerable<int>
     {
         public int Id { get; set; }
 
@@ -22,6 +23,11 @@ namespace XTool.Models.EvaluationModels
 
         private int IndexOf(string name) => ScalesNames.Select((n, i) => new { curName = n, index = i })
             .FirstOrDefault(pair => pair.curName == name).index;
+
+        public IUpdateble Update(IUpdateble model)
+        {
+            throw new NotImplementedException();
+        }
 
         public Scales()
         { }

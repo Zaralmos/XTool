@@ -8,6 +8,6 @@ namespace XTool.Models.Shared
 
         public string Message { get; set; }
 
-        public int RelatedId { get; set; } = -1;
+        public object Data { get; set; }
     }
 }

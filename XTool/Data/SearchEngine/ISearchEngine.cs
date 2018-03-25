@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace XTool.Data.SearchEngine
 {
-    public interface ISearchEngine<TOut, TKey> where TOut : class, IStorageModel<TKey>
+    public interface ISearchEngine<TOut, TKey> where TOut : class, IStorageModel<TKey, TOut>
     {
         IStorage<TKey> Storage { get; }
 

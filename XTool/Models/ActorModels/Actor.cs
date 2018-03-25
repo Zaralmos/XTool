@@ -14,7 +14,7 @@ using XTool.Models.Shared;
 
 namespace XTool.Models.ActorModels 
 {
-    public class Actor : IStorageModel<int>
+    public class Actor : IStorageModel<int, Actor>
     {
         public int Id { get; set; }
 
@@ -107,7 +107,7 @@ namespace XTool.Models.ActorModels
         [NotMapped]
         public int Age => DateTime.Now.Year - Birthday.Year;
 
-        public IUpdateble Update(IUpdateble model)
+        public void Update(Actor updateSource)
         {
             throw new NotImplementedException();
         }

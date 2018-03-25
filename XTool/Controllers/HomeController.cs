@@ -89,7 +89,7 @@ namespace XTool.Controllers
             {
                 actorId = _storage.Add(actor);
                 if (actorId != -1)
-                    result = Json(new OperationResult() { Status = Statuses.Ok, RelatedId = actorId, Message = "Новый актор успешно жобавлен." });
+                    result = Json(new OperationResult() { Status = Statuses.Ok, Data = actorId, Message = "Новый актор успешно жобавлен." });
             }
             return result;
         } 
@@ -99,22 +99,34 @@ namespace XTool.Controllers
             return View(/*new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier }*/);
         }
 
+        public XToolUser CurrentUser
+        {
+            get
+            {
+                var getUserTask = _userManager.GetUserAsync(User);
+                getUserTask.Wait();
+                return getUserTask.Result;
+            }
+        }
+
+        #region AJAX actions
+
         public async Task<IActionResult> Comment(int id, string comment)
         {
             IActionResult result = null;
             try
             {
-                Evaluation evaluation = _storage.GetAll<Evaluation>().FirstOrDefault(e => e.ActorId == id);
+                Evaluation evaluation = _storage.GetAll<Evaluation>().FirstOrDefault(e => e.ActorId == id && e.ExpertId == CurrentUser.Id);
                 if (evaluation != null)
                 {
                     evaluation.Comment = comment;
-                    _storage.Update(evaluation.Id, evaluation); 
+                    _storage.Update(evaluation.Id, evaluation);
                 }
                 else
                 {
                     _storage.Add(new Evaluation() { ActorId = id, Expert = await _userManager.GetUserAsync(User), Scales = new Scales() });
                 }
-                result = Json(new OperationResult() { Status = Statuses.Ok, Message = "Комментарий успешно сохранён", RelatedId = evaluation.Id });
+                result = Json(new OperationResult() { Status = Statuses.Ok, Message = "Комментарий успешно сохранён", Data = evaluation.Id });
             }
             catch(Exception e)
             {
@@ -122,5 +134,22 @@ namespace XTool.Controllers
             }
             return result;
         }
+
+        public async Task<IActionResult> Scales(int id, Scales newScales)
+        {
+            IActionResult result = null;
+            Evaluation evaluation = _storage.GetAll<Evaluation>().FirstOrDefault(e => e.ActorId == id && CurrentUser.Id == e.ExpertId);
+            if (evaluation != null)
+            {
+                _storage.Update(evaluation.Scales.Id, newScales);
+            }
+            else
+            {
+                _storage.Add(new Evaluation() { ExpertId = CurrentUser.Id, Scales = newScales });
+            }
+            return Json(new OperationResult() { Status = Statuses.Ok, Message = "Экспертная оценка успешно обновлена" });
+        }
+
+        #endregion
     }
 }

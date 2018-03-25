@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace XTool.Data.ModelInterfaces
 {
-    public interface IStorageModel<TKey> : IUpdateble, IWithId<TKey>
+    public interface IStorageModel<TKey, TSelf> : IUpdateble<TSelf>, IWithId<TKey>
     {
     }
 }

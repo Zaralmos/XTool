@@ -9,7 +9,7 @@ using XTool.Models.ModelInterfaces.DataAnnotations;
 
 namespace XTool.Data.SearchEngine
 {
-    public abstract class SearchEngine<TOut, TKey> : ISearchEngine<TOut, TKey> where TOut : class, IStorageModel<TKey>
+    public abstract class SearchEngine<TOut, TKey> : ISearchEngine<TOut, TKey> where TOut : class, IStorageModel<TKey, TOut>
     {
         public IStorage<TKey> Storage { get; set; }
 

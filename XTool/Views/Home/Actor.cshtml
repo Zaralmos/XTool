@@ -171,7 +171,10 @@
 
             <div class="card-inline">
                 <div class="card-inline-item">
-                    <input type="submit" value="Сохранить" />
+                    <input type="button" value="очистить" />
+                </div>
+                <div class="card-inline-item">
+                    <input type="button" value="Сохранить" href="@Url.Action("Scales", "Home")" params="@actor.Id" class="ajax-button ajax-comment" />
                 </div>
             </div>
         </form>

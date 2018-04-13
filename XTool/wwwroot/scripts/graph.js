@@ -11,6 +11,13 @@ class Graph {
     initGraph() {
         this.initConstants();
         this.initClassValues();
+        this.redrawLine = () => {
+            var points = "";
+            this.vertexes.forEach(vertex => {
+                points += (vertex.parentNode.offsetLeft + vertex.offsetLeft + vertex.offsetWidth / 2) + ',' + (vertex.offsetTop + vertex.offsetHeight / 2) + ' ';
+            });
+            this.line.setAttribute("points", points);
+        }
         this.initEvents();
     }
 
@@ -30,7 +37,16 @@ class Graph {
             }
 
             value.oninput = (e) => {
-                let curretnValue = parseInt(value.getAttribute("value"));
+                let curretnValue = +($(value).val());
+                curretnValue = Math.min(curretnValue, 120);
+                curretnValue = Math.max(curretnValue, 0);
+                if (isNaN(curretnValue))
+                    curretnValue = 0;
+                $(value).val(curretnValue);
+                let name = value.getAttribute('name');
+                let vertex = this.vertexes.find(v => v.getAttribute('name') == name);
+                vertex.style.top = ((120 - curretnValue) / 120 * 100) + '%';
+                this.redrawLine();
             }
         });
         window.addEventListener("resize", this.redrawLine);
@@ -119,14 +135,6 @@ class Graph {
         this.vertexValues = Array.from(this.graph.getElementsByClassName(this.vertexValueClass));
         this.vertexes = Array.from(this.graph.getElementsByClassName(this.graphVertexClass));
         this.line = this.graph.getElementsByClassName(this.lineClass)[0];
-    }
-
-    redrawLine() {
-        var points = "";
-        this.vertexes.forEach(vertex => {
-            points += (vertex.parentNode.offsetLeft + vertex.offsetLeft + vertex.offsetWidth / 2) + ',' + (vertex.offsetTop + vertex.offsetHeight / 2) + ' ';
-        });
-        this.line.setAttribute("points", points);
     }
 }
 

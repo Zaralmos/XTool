@@ -62,6 +62,10 @@ namespace XTool.Controllers
                     }
                     ViewBag.Scales = scales;
                     ViewBag.Comments = actor.Evaluations.Select(e => e.Comment) ?? new List<string>();
+                    int[] evaluationIds = Context.Scales.Select(s => s.EvaluationId).ToArray();
+                    int[] expertsIds = actor.Evaluations.Where(e => evaluationIds.Contains(e.Id)).Select(e => e.ExpertId).ToArray();
+
+                    ViewBag.Experts = Context.Users.Where(u => expertsIds.Contains(u.Id)).ToArray();
                     result = View("TechnologistActor");
                 }
                 else

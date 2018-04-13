@@ -20,6 +20,12 @@
             <option value="0" selected>
                 *Все
             </option>
+            @foreach(XToolUser expert in graphModel.Experts)
+            {
+                <option value="@expert.Id">
+                    @expert.FullName
+                </option>
+            }
         </select>
         Метод оценки
         <select name="Algorithm">
@@ -70,7 +76,15 @@
             {
                 <div class="graph-column">
                     <div class="graph-vertex" name="@Scales.ScalesNames[i]" style="top: @((Scales.UPPER_LIMIT - graphModel.InitScales[i]) * 100 / Scales.UPPER_LIMIT)%">
-                        <input type="text" name="@Scales.ScalesNames[i]" class="vertex-value" value="@graphModel.InitScales[i]" @*readonly="@(graphModel.GraphType != GraphType.EditableIndividual ? "readonly" : "false")"*@>
+                        @if (graphModel.GraphType == GraphType.EditableIndividual)
+                        {
+                            <input type="text" name="@Scales.ScalesNames[i]" class="vertex-value" value="@graphModel.InitScales[i]">
+                        }
+                        else
+                        {
+                            <input type="text" name="@Scales.ScalesNames[i]" class="vertex-value" value="@graphModel.InitScales[i]" readonly>
+                        }
+
                     </div>
                     <div class="column-name" name="@Scales.ScalesNames[i]">
                         @Utilities.RomeanNumbers[i + 1]

@@ -2,398 +2,402 @@
     Actor actor = ViewBag.Actor as Actor;
     Scales scales = ViewBag.Scales as Scales;
     IEnumerable<string> comments = ViewBag.Comments as IEnumerable<string>;
+    XToolUser[] experts = ViewBag.Experts as XToolUser[];
 }
 
-@*
-<section class="card-group">
     <div class="section-title">
         @actor.Name
-        <button class="section-hider" onclick="change_section_content_state(event)">
-            скрыть
-        </button>
     </div>
-
-    <div class="clear"></div>
-    <div class="section-content">
-        <div class="card-title">
-            Основная информация
+@*
+    <section class="card-group">
+        <div class="section-title">
+            @actor.Name
+            <button class="section-hider" onclick="change_section_content_state(event)">
+                скрыть
+            </button>
         </div>
-        <div class="card">
-            <div class="card-content login-form">
-                <div><span class="error"> </span></div>
 
-                <div>Фамилия, имя и отчество</div>
-                <input type="text" class="" name="Name" value="@actor.Name" required>
+        <div class="clear"></div>
+        <div class="section-content">
+            <div class="card-title">
+                Основная информация
+            </div>
+            <div class="card">
+                <div class="card-content login-form">
+                    <div><span class="error"> </span></div>
 
-                <div>Дата рождения</div>
-                <input type="date" class="" name="Birthday" value="@actor.Birthday" required>
+                    <div>Фамилия, имя и отчество</div>
+                    <input type="text" class="" name="Name" value="@actor.Name" required>
 
-                <div>Место работы и должность</div>
-                <input type="text" class="" name="Position" value="@actor.Position" required>
+                    <div>Дата рождения</div>
+                    <input type="date" class="" name="Birthday" value="@actor.Birthday" required>
+
+                    <div>Место работы и должность</div>
+                    <input type="text" class="" name="Position" value="@actor.Position" required>
+                </div>
+            </div>
+
+            <!-- Фотографии -->
+
+            <div class="card-title">
+                Фотографии
+            </div>
+
+            <div class="card">
+                <img class="photo" src="">
+                <div class="card-content with-extension">
+                    <div>URL фотографии</div>
+                    <input class="photo-url" type="text" name="url" id="">
+                    <div>Описание фотографии</div>
+                    <textarea name="description" id="" rows="1"></textarea>
+                </div>
+                <textarea placeholder="Тут вы можете оставить дополнительное пояснение..." class="card-textbox card-extension" rows="1"></textarea>
+            </div>
+
+            <div class="card-inline">
+                <div class="card-inline-item">
+                    <input type="button" value="Удалить" />
+                </div>
+            </div>
+
+            <!-- Публикации и выступления -->
+
+            <!--<div class="card-title">
+                Публикации и выступления
+            </div>
+
+            <div class="card-subtitle">
+                2016
+            </div>
+
+            <div class="card">
+                <div class="card-content-wrapper">
+
+                    <div class="card-content">
+                        Статья в глянцевом журнале "Все Звёзды"
+                    </div>
+                    <a class="card-link" href="https://www.google.com">
+                        <div class="arrow-box-wrapper">
+                            <div class="arrow-box">
+                                ►
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="card-extension">
+                    @Html.Partial("Partial/Graph", new Scales(new int[] { 56,45,47,45,67,34,80,50,67,78 }))
+                </div>
+
             </div>
         </div>
 
-        <!-- Фотографии -->
 
-        <div class="card-title">
-            Фотографии
-        </div>
 
         <div class="card">
-            <img class="photo" src="">
             <div class="card-content with-extension">
-                <div>URL фотографии</div>
-                <input class="photo-url" type="text" name="url" id="">
-                <div>Описание фотографии</div>
-                <textarea name="description" id="" rows="1"></textarea>
+                Интервью в телепередаче "Собчак Живьёв" на "Дожде"
             </div>
-            <textarea placeholder="Тут вы можете оставить дополнительное пояснение..." class="card-textbox card-extension" rows="1"></textarea>
-        </div>
-
-        <div class="card-inline">
-            <div class="card-inline-item">
-                <input type="button" value="Удалить" />
+            <div class="card-extension">
+                Для начала рассмотрим самый простой вариант, когда ширина левой колонки жестко задана в пикселах, а ширина правой колонки
+                варьируется в зависимости от размеров окна браузера. Для этого требуется задать общую ширину всей
+                таблицы в процентах через атрибут width тега и для первой ячейки установить ее ширину в пикселах
+                или процентах также с помощью атрибута width, но уже для тега.
             </div>
         </div>
 
-        <!-- Публикации и выступления -->
 
-        <!--<div class="card-title">
-            Публикации и выступления
-        </div>
 
         <div class="card-subtitle">
-            2016
+            2017
         </div>
 
         <div class="card">
-            <div class="card-content-wrapper">
-
+            <div class="card-content-wrapper with-extension">
                 <div class="card-content">
+
                     Статья в глянцевом журнале "Все Звёзды"
                 </div>
                 <a class="card-link" href="https://www.google.com">
                     <div class="arrow-box-wrapper">
                         <div class="arrow-box">
                             ►
+
                         </div>
                     </div>
                 </a>
+
             </div>
             <div class="card-extension">
-                @Html.Partial("Partial/Graph", new Scales(new int[] { 56,45,47,45,67,34,80,50,67,78 }))
+                В среду, 24 июня, на Дожде состоялся прямой разговор лидера «Партии прогресса» и главы «Роснано» Анатолия Чубайса. Жаркий
+                разговор о деятельности корпорации, финансировании компании и науки. Мы собрали реакцию зрителей
+                телеканала на главный эфир этого лета.
             </div>
-
         </div>
-    </div>
 
 
-
-    <div class="card">
-        <div class="card-content with-extension">
-            Интервью в телепередаче "Собчак Живьёв" на "Дожде"
+        <div class="card-subtitle">
+            ...
         </div>
-        <div class="card-extension">
-            Для начала рассмотрим самый простой вариант, когда ширина левой колонки жестко задана в пикселах, а ширина правой колонки
-            варьируется в зависимости от размеров окна браузера. Для этого требуется задать общую ширину всей
-            таблицы в процентах через атрибут width тега и для первой ячейки установить ее ширину в пикселах
-            или процентах также с помощью атрибута width, но уже для тега.
+
+        <div class="card">
+            <div class="card-content-wrapper with-extension">
+                <div class="card-content">
+
+                    Статья в глянцевом журнале "Все Звёзды"
+                </div>
+            </div>
+            <div class="card-extension">
+                В среду, 24 июня, на Дожде состоялся прямой разговор лидера «Партии прогресса» и главы «Роснано» Анатолия Чубайса. Жаркий
+                разговор о деятельности корпорации, финансировании компании и науки. Мы собрали реакцию зрителей
+                телеканала на главный эфир этого лета.
+            </div>
         </div>
-    </div>
 
-
-
-    <div class="card-subtitle">
-        2017
-    </div>
-
-    <div class="card">
-        <div class="card-content-wrapper with-extension">
+        <div class="card">
             <div class="card-content">
-
                 Статья в глянцевом журнале "Все Звёзды"
             </div>
-            <a class="card-link" href="https://www.google.com">
-                <div class="arrow-box-wrapper">
-                    <div class="arrow-box">
-                        ►
+        </div>-->
 
-                    </div>
-                </div>
-            </a>
+        <!-- Видео -->
 
+        <!--<div class="card-title">
+            Видео
         </div>
-        <div class="card-extension">
-            В среду, 24 июня, на Дожде состоялся прямой разговор лидера «Партии прогресса» и главы «Роснано» Анатолия Чубайса. Жаркий
-            разговор о деятельности корпорации, финансировании компании и науки. Мы собрали реакцию зрителей
-            телеканала на главный эфир этого лета.
-        </div>
-    </div>
-
-
-    <div class="card-subtitle">
-        ...
-    </div>
-
-    <div class="card">
-        <div class="card-content-wrapper with-extension">
-            <div class="card-content">
-
-                Статья в глянцевом журнале "Все Звёзды"
-            </div>
-        </div>
-        <div class="card-extension">
-            В среду, 24 июня, на Дожде состоялся прямой разговор лидера «Партии прогресса» и главы «Роснано» Анатолия Чубайса. Жаркий
-            разговор о деятельности корпорации, финансировании компании и науки. Мы собрали реакцию зрителей
-            телеканала на главный эфир этого лета.
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-content">
-            Статья в глянцевом журнале "Все Звёзды"
-        </div>
-    </div>-->
-
-    <!-- Видео -->
-
-    <!--<div class="card-title">
-        Видео
-    </div>
-    <div class="card">
-        <div class="video-wrapper">
-            <div style="padding-bottom: 56.28%">
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/y266ydiyICY?rel=0&amp;showinfo=0" frameborder="0" allow="encrypted-media"
-                        allowfullscreen></iframe>
-            </div>
-        </div>
-        <div class="card-content">
-            Как прошли антикоррупционные акции 12 июня
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="video-wrapper">
-            <div style="padding-bottom: 56.28%">
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/ZOo36NuY364?rel=0&amp;showinfo=0" frameborder="0" allow="encrypted-media"
-                        allowfullscreen></iframe>
-            </div>
-        </div>
-
-        <div class="card-content with-extension">
-            Речь Навального на митинге 6 мая на болотной HD крупный план
-        </div>
-        <div class="card-extension">
-            Для начала рассмотрим самый простой вариант, когда ширина левой колонки жестко задана в пикселах, а ширина правой колонки
-            варьируется в зависимости от размеров окна браузера. Для этого требуется задать общую ширину всей
-            таблицы в процентах через атрибут width тега и для первой ячейки установить ее ширину в пикселах
-            или процентах также с помощью атрибута width, но уже для тега.
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-content-wrapper">
-            <div class="card-content">
-
-                Они простили — мы заплатили. Речь Навального на Болотной 6 мая
-            </div>
-            <a class="card-link" href="https://www.youtube.com/watch?v=GhIiAz9XKx4" target="blank">
-                <div class="arrow-box-wrapper">
-                    <div class="arrow-box">
-                        <img src="img/clip-art/video.png" alt="movie" class="inner-card-item">
-                    </div>
-                </div>
-            </a>
-
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-content-wrapper with-extension">
-            <div class="card-content">
-
-                Речь Навального на Болотной 6 мая
-            </div>
-            <a class="card-link" href="https://www.youtube.com/watch?v=GhIiAz9XKx4" target="blank">
-                <div class="arrow-box-wrapper">
-                    <div class="arrow-box">
-                        <img src="img/clip-art/video.png" alt="movie" class="inner-card-item">
-                    </div>
-                </div>
-            </a>
-
-        </div>
-        <div class="card-extension">
-            В CSS есть всего несколько техник центрирования элементов. Если их знать, то большинство задач решаются просто.
-        </div>
-    </div>-->
-
-    <!-- Цитаты -->
-        
-    <!--<div class="card-title">Цитаты</div>
-
-    <div class="card">
-        <div class="card-content-wrapper">
-            <div class="card-link" href="https://www.google.com">
-                <div class="arrow-box-wrapper">
-                    <div class="arrow-box">
-                        <img src="img/clip-art/quote.png" alt="quotation" class="inner-card-item">
-                    </div>
+        <div class="card">
+            <div class="video-wrapper">
+                <div style="padding-bottom: 56.28%">
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/y266ydiyICY?rel=0&amp;showinfo=0" frameborder="0" allow="encrypted-media"
+                            allowfullscreen></iframe>
                 </div>
             </div>
             <div class="card-content">
-                У каждого должны быть 15 минут борьбы с режимом в день.
+                Как прошли антикоррупционные акции 12 июня
             </div>
         </div>
-    </div>
 
-    <div class="card">
-        <div class="card-content-wrapper with-extension">
-            <div class="card-link" href="https://www.google.com">
-                <div class="arrow-box-wrapper">
-                    <div class="arrow-box">
-                        <img src="img/clip-art/quote.png" alt="quotation" class="inner-card-item">
-                    </div>
+        <div class="card">
+            <div class="video-wrapper">
+                <div style="padding-bottom: 56.28%">
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/ZOo36NuY364?rel=0&amp;showinfo=0" frameborder="0" allow="encrypted-media"
+                            allowfullscreen></iframe>
                 </div>
             </div>
-            <div class="card-content">
-                Союз должен был развалиться, большинству людей он казался обузой. Было бы прекрасно, если бы у нас была такая страна, но
-                к тому времени это было уже нежизнеспособное образование. Было огромное число негативных последствий:
-                русские — крупнейший разделенный народ Европы; в республиках произошли гражданские войны. Но
-                это было логично с исторической точки зрения. Его развалили не демократы, а коммунисты, комсомольцы,
-                ГКЧП. Сейчас стало модно говорить, какая это ужасная «главная геополитическая катастрофа двадцатого
-                века».
+
+            <div class="card-content with-extension">
+                Речь Навального на митинге 6 мая на болотной HD крупный план
+            </div>
+            <div class="card-extension">
+                Для начала рассмотрим самый простой вариант, когда ширина левой колонки жестко задана в пикселах, а ширина правой колонки
+                варьируется в зависимости от размеров окна браузера. Для этого требуется задать общую ширину всей
+                таблицы в процентах через атрибут width тега и для первой ячейки установить ее ширину в пикселах
+                или процентах также с помощью атрибута width, но уже для тега.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-content-wrapper">
+                <div class="card-content">
+
+                    Они простили — мы заплатили. Речь Навального на Болотной 6 мая
+                </div>
+                <a class="card-link" href="https://www.youtube.com/watch?v=GhIiAz9XKx4" target="blank">
+                    <div class="arrow-box-wrapper">
+                        <div class="arrow-box">
+                            <img src="img/clip-art/video.png" alt="movie" class="inner-card-item">
+                        </div>
+                    </div>
+                </a>
 
             </div>
         </div>
-        <div class="card-extension">
-            Цитата из книги «Алексей Навальный. Гроза жуликов и воров»
+        <div class="card">
+            <div class="card-content-wrapper with-extension">
+                <div class="card-content">
 
-        </div>
-    </div>-->
+                    Речь Навального на Болотной 6 мая
+                </div>
+                <a class="card-link" href="https://www.youtube.com/watch?v=GhIiAz9XKx4" target="blank">
+                    <div class="arrow-box-wrapper">
+                        <div class="arrow-box">
+                            <img src="img/clip-art/video.png" alt="movie" class="inner-card-item">
+                        </div>
+                    </div>
+                </a>
 
-    <!-- Биография -->
+            </div>
+            <div class="card-extension">
+                В CSS есть всего несколько техник центрирования элементов. Если их знать, то большинство задач решаются просто.
+            </div>
+        </div>-->
 
-    <!-- <div class="card-title">Биография</div>
+        <!-- Цитаты -->
 
-    <div class="card-subtitle">
-        1993-2000
-    </div>
+        <!--<div class="card-title">Цитаты</div>
 
-    <div class="card">
-        <div class="card-content-wrapper with-extension">
-            <div class="card-link">
-                <div class="arrow-box-wrapper">
-                    <div class="arrow-box">
-                        <div class="inner-card-number">
-                            1993
+        <div class="card">
+            <div class="card-content-wrapper">
+                <div class="card-link" href="https://www.google.com">
+                    <div class="arrow-box-wrapper">
+                        <div class="arrow-box">
+                            <img src="img/clip-art/quote.png" alt="quotation" class="inner-card-item">
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-content">
-                Окончил школу
+                <div class="card-content">
+                    У каждого должны быть 15 минут борьбы с режимом в день.
+                </div>
             </div>
         </div>
-        <div class="card-extension">
-            Учеником был недостаточно прилежным. Оценики получал не самые высокие.
-        </div>
-    </div>
 
-
-    <div class="card">
-        <div class="card-content-wrapper">
-            <div class="card-link">
-                <div class="arrow-box-wrapper">
-                    <div class="arrow-box">
-                        <div class="inner-card-number">
-                            1993
-                            <br>⋮
-                            <br>1998
+        <div class="card">
+            <div class="card-content-wrapper with-extension">
+                <div class="card-link" href="https://www.google.com">
+                    <div class="arrow-box-wrapper">
+                        <div class="arrow-box">
+                            <img src="img/clip-art/quote.png" alt="quotation" class="inner-card-item">
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-content">
-                Студент юридического факультета Российского университета дружбы народов; работа в банке «Аэрофлот»
-            </div>
-        </div>
-    </div>
+                <div class="card-content">
+                    Союз должен был развалиться, большинству людей он казался обузой. Было бы прекрасно, если бы у нас была такая страна, но
+                    к тому времени это было уже нежизнеспособное образование. Было огромное число негативных последствий:
+                    русские — крупнейший разделенный народ Европы; в республиках произошли гражданские войны. Но
+                    это было логично с исторической точки зрения. Его развалили не демократы, а коммунисты, комсомольцы,
+                    ГКЧП. Сейчас стало модно говорить, какая это ужасная «главная геополитическая катастрофа двадцатого
+                    века».
 
-    <div class="card">
-        <div class="card-content-wrapper">
-            <div class="card-link">
-                <div class="arrow-box-wrapper">
-                    <div class="arrow-box">
-                        <div class="inner-card-number">
-                            1998
-                            <br>⋮
-                            <br>1999
+                </div>
+            </div>
+            <div class="card-extension">
+                Цитата из книги «Алексей Навальный. Гроза жуликов и воров»
+
+            </div>
+        </div>-->
+
+        <!-- Биография -->
+
+        <!-- <div class="card-title">Биография</div>
+
+        <div class="card-subtitle">
+            1993-2000
+        </div>
+
+        <div class="card">
+            <div class="card-content-wrapper with-extension">
+                <div class="card-link">
+                    <div class="arrow-box-wrapper">
+                        <div class="arrow-box">
+                            <div class="inner-card-number">
+                                1993
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="card-content">
+                    Окончил школу
+                </div>
             </div>
-            <div class="card-content">
-                Юрист в девелоперской компании ST Group
+            <div class="card-extension">
+                Учеником был недостаточно прилежным. Оценики получал не самые высокие.
             </div>
         </div>
-    </div>
 
-    <div class="card-subtitle">
-        2000-2017
-    </div>
 
-    <div class="card">
-        <div class="card-content-wrapper">
-            <div class="card-link">
-                <div class="arrow-box-wrapper">
-                    <div class="arrow-box">
-                        <div class="inner-card-number">
-                            2009
+        <div class="card">
+            <div class="card-content-wrapper">
+                <div class="card-link">
+                    <div class="arrow-box-wrapper">
+                        <div class="arrow-box">
+                            <div class="inner-card-number">
+                                1993
+                                <br>⋮
+                                <br>1998
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="card-content">
+                    Студент юридического факультета Российского университета дружбы народов; работа в банке «Аэрофлот»
+                </div>
             </div>
+        </div>
+
+        <div class="card">
+            <div class="card-content-wrapper">
+                <div class="card-link">
+                    <div class="arrow-box-wrapper">
+                        <div class="arrow-box">
+                            <div class="inner-card-number">
+                                1998
+                                <br>⋮
+                                <br>1999
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    Юрист в девелоперской компании ST Group
+                </div>
+            </div>
+        </div>
+
+        <div class="card-subtitle">
+            2000-2017
+        </div>
+
+        <div class="card">
+            <div class="card-content-wrapper">
+                <div class="card-link">
+                    <div class="arrow-box-wrapper">
+                        <div class="arrow-box">
+                            <div class="inner-card-number">
+                                2009
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    Организатор (вместе с российской версией журнала Forbes) проекта по защите прав миноритарных акционеров — Центра защиты акционеров.
+                    <br>
+                </div>
+            </div>
+        </div>-->
+
+        <!-- Дополнительные блоки -->
+
+        <!--<div class="card-title">Религиозные взгляды</div>
+
+        <div class="card">
             <div class="card-content">
-                Организатор (вместе с российской версией журнала Forbes) проекта по защите прав миноритарных акционеров — Центра защиты акционеров.
-                <br>
+
+
             </div>
         </div>
-    </div>-->
 
-    <!-- Дополнительные блоки -->
 
-    <!--<div class="card-title">Религиозные взгляды</div>
+        <div class="card-title">Добавить раздел</div>
 
-    <div class="card">
-        <div class="card-content">
+        <div class="card">
+            <div class="card-content login-form">
+                <div><span class="error"> </span></div>
+
+                <div>Название раздела</div>
+                <input type="text" class="" name="Name" required>
+
+
+            </div>
+        </div>
+
+        <div class="card-inline">
+            <div class="card-inline-item">
+                <input type="button" href="" value="Добавить"/>
+            </div>
+        </div>
 
 
         </div>
-    </div>
-
-
-    <div class="card-title">Добавить раздел</div>
-
-    <div class="card">
-        <div class="card-content login-form">
-            <div><span class="error"> </span></div>
-
-            <div>Название раздела</div>
-            <input type="text" class="" name="Name" required>
-
-            
-        </div>
-    </div>
-
-    <div class="card-inline">
-        <div class="card-inline-item">
-            <input type="button" href="" value="Добавить"/>
-        </div>
-    </div>
-
-
-    </div>
-</section>-->
+    </section>-->
 
 *@
 
@@ -420,7 +424,7 @@
         <form>
             <div class="card">
                 <div class="card-content">
-                    @Html.Partial("Partial/Graph", new GraphModel() { ActorId = actor.Id, GraphType = GraphType.ReadOnlyTotal, InitScales = scales, InitAlgorithm = Algorithms.RootMeanSquare, InitSelectionPercent = 100 })
+                    @Html.Partial("Partial/Graph", new GraphModel() { ActorId = actor.Id, GraphType = GraphType.ReadOnlyTotal, InitScales = scales, InitAlgorithm = Algorithms.RootMeanSquare, InitSelectionPercent = 100, Experts = experts })
                 </div>
             </div>
 

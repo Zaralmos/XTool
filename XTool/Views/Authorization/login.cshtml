@@ -10,7 +10,7 @@
             {
                 <div><span class="error"> @ViewBag.Message </span></div>
             }
-            <div>Email или номер телефона</div>
+            <div>Email</div>
             <input type="email" name="Email" value="@ViewBag.LoginModel?.Email" required>
             <div>Пароль<a class="login-forgot" href="@Url.Action("Forgot")">Забыли?</a></div>
             <input type="password" name="Password" value="@ViewBag.LoginModel?.Password" required>

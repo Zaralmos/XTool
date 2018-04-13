@@ -28,7 +28,7 @@ namespace XTool.Controllers
         protected virtual IActionResult WrapAjax(Func<OperationResult> action)
         {
             var wrappingTask = WrapAjaxAsync(async () => action());
-            wrappingTask.Start();
+            //wrappingTask.Start();
             wrappingTask.Wait();
             return wrappingTask.Result;
         }

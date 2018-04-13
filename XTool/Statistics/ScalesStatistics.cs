@@ -14,13 +14,13 @@ namespace XTool.Statistics
         /// </summary>
         /// <param name="scalesCollection">исходный набор оценок.</param>
         /// <param name="selectionPercent"></param>
-        private static IEnumerable<Scales> RemoveOutliers(this IEnumerable<Scales> scalesCollection, double selectionPercent = 50)
+        private static IEnumerable<Scales> RemoveOutliers(this IEnumerable<Scales> scalesCollection, double selectionPercent)
         {
             if (selectionPercent > 100 || selectionPercent < 0)
                 throw new ArgumentException("Аргумент выражается в процентах [0; 100]");
             Dictionary<int, double> expectations = scalesCollection.AverageDictionary();
             return scalesCollection.OrderBy(scales => scales.OutlineIndex(expectations))
-                .Take(Math.Max((int)selectionPercent * scalesCollection.Count(), 1));
+                .Take(Math.Max((int)(selectionPercent / 100 * scalesCollection.Count()), 1));
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace XTool.Statistics
         /// <param name="scalesCollection">исходный набор оценок.</param>
         /// <param name="selectionPercent">Значение в процентах, показывающее какую часть исхожной выборки оставлять после отсечения</param>
         public static Scales RootMeanSquare(this IEnumerable<Scales> scalesCollection, double selectionPercent = 100) => new Scales(
-        scalesCollection.RemoveOutliers().TransposeScales().Select(valuesCollection => (int)(Math.Sqrt(valuesCollection.Average(val => val * val)))));
+        scalesCollection.RemoveOutliers(selectionPercent).TransposeScales().Select(valuesCollection => (int)(Math.Sqrt(valuesCollection.Average(val => val * val)))));
 
         public static double AccuracyIndex(this IEnumerable<Scales> scalesCollection, Scales scales)
         {

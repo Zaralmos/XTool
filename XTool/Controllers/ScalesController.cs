@@ -32,27 +32,38 @@ namespace XTool.Controllers
         [Authorize(Roles = "superadmin, admin, technologist")]
         public IActionResult TotalScales(ScalesRequest request)
         {
-            OperationResult result = null;
-            Actor actor = _context.Find<Actor>(request.ActorId)?.LoadFrom(_context);
-            if (actor == null)
-                result = new OperationResult() { Status = Statuses.Error, Message = "Не существует актора с таким Id!" };
-            else
+            return WrapAjax(() =>
             {
+                Actor actor = _context.Find<Actor>(request.ActorId)?.LoadFrom(_context)
+                    ?? throw new OperationResultException(Statuses.Error, "В системе не существует актора с таким Id!");
+
+                if (actor.Evaluations.Count == 0)
+                    throw new OperationResultException(Statuses.Error, "В системе нет ни одной оценки для указанного актора!");
+
                 int[] evaluationsIds = actor.Evaluations.Select(e => e.Id).ToArray();
-                if (evaluationsIds.Length == 0)
-                    result = new OperationResult() { Status = Statuses.Error, Message = "В системе нет ни одной оценки для указанного актора!" };
-                else
+                var allScales = _context.Scales.Where(s => evaluationsIds.Contains(s.EvaluationId))
+                    ?? throw new OperationResultException(Statuses.Error, "У актора нет ни одной экспертной оценки!");
+
+                Scales resultScales = null;
+                switch (request.Algorithm)
                 {
-                    var scales = _context.Scales.Where(s => evaluationsIds.Contains(s.EvaluationId))?.RootMeanSquare();
-                    result = new OperationResult() { Status = Statuses.Ok, Message = "Результирующая экспертная оценка успешно сформирована", Data = scales };
+                    case Algorithms.Average:
+                        resultScales = allScales.SimpleAverage();
+                        break;
+                    case Algorithms.RootMeanSquare:
+                        resultScales = allScales.RootMeanSquare(request.SelectionPercent);
+                        break;
                 }
-            }
-            return Json(result);
+
+                return new OperationResult() { Status = Statuses.Ok, Message = "Результирующая экспертная оценка успешно сформирована", Data = resultScales };
+            });
         }
+        //OperationResult result = null;
+        //return Json(result);
 
         public XToolUser CurrentUser => _userManager.GetUser(User);
 
-        public async Task<IActionResult> IndividualScales(int id, int? expertId)
+        public async Task<IActionResult> IndividualScales(int actorId, int? expertId)
         {
             return await WrapAjaxAsync(async () =>
              {
@@ -66,13 +77,15 @@ namespace XTool.Controllers
                  XToolUser expert = _context.Users.Find(expertId)
                      ?? throw new OperationResultException(Statuses.Error, "В системе не существует эксперта с таким Id!");
 
-                 Actor actor = _context.Find<Actor>(id)?.LoadFrom(_context)
+                 Actor actor = _context.Find<Actor>(actorId)?.LoadFrom(_context)
                      ?? throw new OperationResultException(Statuses.Error, "В системе не существует актора с таким Id!");
 
                  Evaluation evaluation = actor.Evaluations.FirstOrDefault(ev => ev.ExpertId == expert.Id)?.LoadFrom(_context);
 
                  if (evaluation == null || evaluation.Scales == null)
                      throw new OperationResultException(Statuses.Error, "Этот эксперт ещё не поставил оценку данному актору!");
+
+                 evaluation.Scales.Evaluation = null; // Выяснить, почему тут эта хрень!
 
                  return new OperationResult(Statuses.Ok, "Индивидуальная оценка успешно загружена.", evaluation.Scales);
              });

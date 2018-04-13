@@ -1,5 +1,6 @@
 ﻿using System;
 using XTool.Models.EvaluationModels;
+using XTool.Models.Roles;
 using XTool.Models.TransferModels.GraphApi;
 
 namespace XTool.Views.ViewCode
@@ -19,6 +20,8 @@ namespace XTool.Views.ViewCode
         public int InitSelectionPercent { get; set; }
 
         public Algorithms InitAlgorithm { get; set; }
+
+        public XToolUser[] Experts { get; set; }
 
         public GraphModel SetRandomId()
         {
